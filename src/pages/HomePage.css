@@ -1,0 +1,67 @@
+.containHome {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+  padding: 1rem;
+}
+
+.containHome > div {
+    width: 50%;
+    padding: 3rem;
+}
+
+.content > h1 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.carmakes {
+    height: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+.carmakes::-webkit-scrollbar-thumb {
+    background: green;
+    border-radius: 10px;
+}
+
+.carmakes > div {
+  height: 5rem;
+
+}
+
+.carmakes > div > img {
+    height: 100%;
+    width: auto;
+}
+
+.extraContent {
+  margin: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.extraContent > div {
+  width: 25%;
+  border: solid #005C53;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.extraContent > div> h2 {
+  color: #005C53;
+}
