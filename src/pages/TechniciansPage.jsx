@@ -3,11 +3,14 @@ import { initializeApp } from 'firebase/app'
 import { getFirestore, doc, getDocs, setDoc, collection, orderBy } from 'firebase/firestore'
 import { useSelector, useDispatch } from 'react-redux'
 import { useFormik } from 'formik'
+import Modal from 'react-modal'
 
 import './TechniciansPage.css'
 import { addRequest } from '../store'
 
 const TechniciansPage = (props) => {
+
+  
 
   // Generate Random Codes here
   function generateRandomCode(){
@@ -41,7 +44,8 @@ const TechniciansPage = (props) => {
       querySnapshot.forEach((doc) => {
         setTempStore(tempStore => [...tempStore, doc.data()])
       })
-      alert("Store has been refreshed successfully")
+      setAlertMessage("Store has been refreshed successfully")
+      setModalState(true)
     }
     const generateStore = () => {
       return tempStore.map((item) => {
@@ -83,13 +87,39 @@ const TechniciansPage = (props) => {
         }
       }
       setRequest()
-      alert('Your request has been saved! \nPlease ensure to copy your request code\n\n' + 'Request Code: ' + newCode + '\n\nitemID: ' + values.itemID + '\nrequested quantity: ' + values.numberRequired)
+      setModalState(true)
+      setAlertMessage('Your request is being processed! | ' + 'Request Code: ' + newCode + ' | ItemID: ' + values.itemID + ' | Requested quantity: ' + values.numberRequired)
     }
   })
 
+    // Modal setup for alerts and messages
+    Modal.setAppElement('#root');
+    const [modalState, setModalState] = useState(false)
+    const [alertMessage, setAlertMessage] = useState('')
+    function openModal () {
+      setModalState(true)
+    }
+    function closeModal(){
+      setModalState(false)
+    }
+    const customStyles = {
+      content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+      },
+    };
 
     return (
       <>
+
+        {/*Modal Element */}
+    <Modal isOpen={modalState} shouldCloseOnOverlayClick={true} onRequestClose={closeModal} style={customStyles}>
+      <p>{alertMessage}</p>
+    </Modal>
 
         {/*Display the current user's information and tools(probably)*/}
         <div className='profile'>

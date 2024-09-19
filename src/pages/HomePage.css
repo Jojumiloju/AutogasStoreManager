@@ -23,7 +23,7 @@ img {
   height: auto;
 }
 
-.carmakes {
+/* .carmakes {
     height: auto;
     padding: 1rem;
     display: flex;
@@ -46,6 +46,54 @@ img {
 .carmakes > div > img {
     height: 100%;
     width: auto;
+} */
+
+
+.scroll-parent {
+  position: relative;
+  width: 100vw;
+  height: 10rem;
+  overflow-x: hidden;
+}
+
+.scroll-element {
+  display: flex;
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  left: 0%;
+  top: 0%;
+}
+
+.scroll-element > div {
+  width: 10vw;
+  padding-left: 3px;
+}
+
+.primary {
+  animation: primary 9s linear infinite;
+}
+
+.secondary {
+  animation: secondary 9s linear infinite;
+}
+
+@keyframes primary {
+  from {
+    left: 0%;
+  }
+  to {
+    left: -100%;
+  }
+}
+
+@keyframes secondary {
+  from {
+    left: 100%;
+  }
+  to {
+    left: 0%
+  }
 }
 
 .extraContent {

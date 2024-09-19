@@ -1,14 +1,14 @@
-// libraries
+// Libraries
 import React, { useState, createContext, useContext } from 'react'
 import { useFormik } from 'formik'
 import { initializeApp } from 'firebase/app';
 import { getAuth, signOut, signInWithEmailAndPassword } from 'firebase/auth';
+import Modal from 'react-modal'
 
-// WebApp components import
+// Components imports
 import TechniciansPage from './pages/TechniciansPage';
 import ManagementPage from './pages/ManagementPage';
 import HomePage from './pages/HomePage';
-
 import './App.css'
 
 
@@ -42,9 +42,13 @@ function App() {
   const loginEmailPassword = () => {
       signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log(userCredential.user)
+        console.log(userCredential)
+        setAlertMessage(userCredential.user.displayName + ' has signed in successfully')
+        setModalState(true)
       }).catch((error) => {
-        console.log(error.message)
+        setAlertMessage('An error occured | ' + error.message)
+        setModalState(true)
+        console.log(error)
       })
   }
 
@@ -55,14 +59,44 @@ function App() {
   // Sign out the user
   const signOutButton = () => {
     signOut(auth).then(() => {
-      alert('Sign-out successful')
+      setAlertMessage('Sign-out successful')
+      setModalState(true)
     }).catch((error) => {
-      console.log('An error happened')
+      setAlertMessage('An error occured | ' + error.message)
+      setModalState(true)
     });
   }
 
+  
+
+  //configure status information Modals
+  Modal.setAppElement('#root');
+  const [alertMessage, setAlertMessage] = useState('')
+  const [modalState, setModalState] = useState(false)
+  function openModal() {
+    setModalState(true);
+  }
+  function closeModal() {
+    setModalState(false);
+  }
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
+
   return (
     <>
+
+    {/*Modal Element */}
+    <Modal isOpen={modalState} shouldCloseOnOverlayClick={true} onRequestClose={closeModal} style={customStyles}>
+      <p>{alertMessage}</p>
+    </Modal>
      
 
      {/*Conditional rendering of Home page or signed in users page*/}

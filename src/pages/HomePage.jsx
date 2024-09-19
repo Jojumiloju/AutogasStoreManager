@@ -32,21 +32,30 @@ const HomePage = () => {
       </div>
     </div>
     <br />
-    <div className='carmakes'>
-      <div><img src={toyotaLogo} alt="" /></div>
-      <div><img src={corollaLogo} alt="" /></div>
+    <div className='carmakes scroll-parent'>
+      <div className='scroll-element primary'>
+        <div><img src={toyotaLogo} alt="" /></div>
       <div><img src={camryLogo} alt="" /></div>
-      <div><img src={rav4Logo} alt="" /></div>
       <div><img src={highlanderLogo} alt="" /></div>
-      <div><img src={priusLogo} alt="" /></div>
       <div><img src={tacomaLogo} alt="" /></div>
       <div><img src={lexus} alt="" /></div>
       <div><img src={mazda} alt="" /></div>
       <div><img src={volkswagen} alt="" /></div>
       <div><img src={audi} alt="" /></div>
-      <div><img src={honda} alt="" /></div>
       <div><img src={citroen} alt="" /></div>
-    </div>
+      </div>
+      <div className='scroll-element secondary'>
+        <div><img src={toyotaLogo} alt="" /></div>
+      <div><img src={camryLogo} alt="" /></div>
+      <div><img src={highlanderLogo} alt="" /></div>
+      <div><img src={tacomaLogo} alt="" /></div>
+      <div><img src={lexus} alt="" /></div>
+      <div><img src={mazda} alt="" /></div>
+      <div><img src={volkswagen} alt="" /></div>
+      <div><img src={audi} alt="" /></div>
+      <div><img src={citroen} alt="" /></div>
+      </div> 
+      </div>
     <div className='extraContent'>
       <div><h2>Advantages</h2>
       <ul>
