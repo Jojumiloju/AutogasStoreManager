@@ -113,7 +113,7 @@ const ManagementPage = (props) => {
     getRequestList()
     console.log("removed successfully")
   }
-  const approveRequests = (code, quantity, id, reason) => {
+  const approveRequests = (code, quantity, id, reason, user) => {
     async function approve(){
       const requestRef = doc(db, "Store", String(id))
       try{
@@ -138,7 +138,7 @@ const ManagementPage = (props) => {
           reason: reason,
           code: code,
           time: new Date().toLocaleString(),
-          user: props.name,
+          user: user,
           approved: false
         })
       }catch(error){
@@ -168,7 +168,7 @@ const ManagementPage = (props) => {
           <p style={{width: '20%'}}>{item.reason}</p>
           <p style={{width: '20%'}}>{item.time}</p>
           <p style={{width: '20%'}}>{item.user}</p>
-          <button onClick={()=> approveRequests(item.code, item.numberRequired, item.itemID, item.reason)} style={{padding: ' 1rem', border: 'none', backgroundColor: '#9FC131', color: 'white'}}>Approve</button>
+          <button onClick={()=> approveRequests(item.code, item.numberRequired, item.itemID, item.reason, item.user)} style={{padding: ' 1rem', border: 'none', backgroundColor: '#9FC131', color: 'white'}}>Approve</button>
           <button onClick={()=> deleteRequests(item.code)} style={{padding: '1rem', border: 'none', backgroundColor: '#FE6464', color: 'white', marginLeft: '1rem'}}>Delete</button>
         </div>
       )
