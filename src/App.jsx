@@ -9,6 +9,7 @@ import Modal from 'react-modal'
 import TechniciansPage from './pages/TechniciansPage';
 import ManagementPage from './pages/ManagementPage';
 import HomePage from './pages/HomePage';
+import ControlPage from './pages/ControlPage';
 import './App.css'
 
 
@@ -103,6 +104,7 @@ function App() {
       {user? null: <HomePage/>}
       {user? user.uid === 'WadnHrRu3wclwma4oHXqfnBaz763'? <TechniciansPage name={user.displayName} email={user.email}/>: null : null}
       {user? user.uid === 'OIi2zqMzFRfG1nExpTjGZiJPqgd2'? <ManagementPage name={user.displayName} email={user.email}/>: null : null}
+      {user? user.uid === '2oUVYXqedVUIVYGRr3tXAa0RZy92'? <ControlPage name={user.displayName} email={user.email}/>: null: null}
 
 
       {/*Component to let the user signin and signout*/}

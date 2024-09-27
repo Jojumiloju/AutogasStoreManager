@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { initializeApp } from 'firebase/app'
-import { getFirestore, doc, getDocs, collection, setDoc, updateDoc, increment } from 'firebase/firestore'
+import { getFirestore, doc, getDocs, collection, setDoc, updateDoc, increment, deleteDoc } from 'firebase/firestore'
 import { useSelector, useDispatch } from 'react-redux'
 import { useFormik } from 'formik'
 import Modal from 'react-modal'
@@ -95,13 +95,25 @@ const ManagementPage = (props) => {
     const querySnapshot = await getDocs(collection(db, "Request"))
     setTempRequests([])
     querySnapshot.forEach((doc) => {
+      console.log(doc.data())
       setTempRequests(tempRequests => [...tempRequests, doc.data()])
     })
     setAlertMessage('Request list has been updated!')
     setModalState(true)
   }
-  const approveRequests = (code, quantity, id) => {
-    console.log(code, quantity, id)
+  const deleteRequests = (code) => {
+    async function remove(){
+      try{
+        await deleteDoc(doc(db, "Request", code))
+      }catch(error){
+        console.log(error)
+      }
+    }
+    remove()
+    getRequestList()
+    console.log("removed successfully")
+  }
+  const approveRequests = (code, quantity, id, reason) => {
     async function approve(){
       const requestRef = doc(db, "Store", String(id))
       try{
@@ -117,6 +129,33 @@ const ManagementPage = (props) => {
       
     }
     approve()
+    async function setApprovedRequest(){
+      const requestRef = doc(db, 'ApprovedRequest', code)
+      try{
+        await setDoc(requestRef, {
+          itemID: id,
+          numberRequired: quantity,
+          reason: reason,
+          code: code,
+          time: new Date().toLocaleString(),
+          user: props.name,
+          approved: false
+        })
+      }catch(error){
+        console.log(error)
+      }
+    }
+    setApprovedRequest()
+    async function remove(){
+      try{
+        await deleteDoc(doc(db, "Request", code))
+      }catch(error){
+        console.log(error)
+      }
+    }
+    remove()
+    getRequestList()
+    console.log("removed successfully")
   }
   const generateRequests = () => {
     return tempRequests.map((item, index) => {
@@ -129,7 +168,8 @@ const ManagementPage = (props) => {
           <p style={{width: '20%'}}>{item.reason}</p>
           <p style={{width: '20%'}}>{item.time}</p>
           <p style={{width: '20%'}}>{item.user}</p>
-          <button onClick={()=> approveRequests(item.code, item.numberRequired, item.itemID)} style={{padding: ' 1rem', border: 'none', backgroundColor: '#9FC131', color: 'white'}}>Approve</button>
+          <button onClick={()=> approveRequests(item.code, item.numberRequired, item.itemID, item.reason)} style={{padding: ' 1rem', border: 'none', backgroundColor: '#9FC131', color: 'white'}}>Approve</button>
+          <button onClick={()=> deleteRequests(item.code)} style={{padding: '1rem', border: 'none', backgroundColor: '#FE6464', color: 'white', marginLeft: '1rem'}}>Delete</button>
         </div>
       )
     })
@@ -210,6 +250,7 @@ const ManagementPage = (props) => {
             <p>Timestamp</p>
             <p>Resquester</p>
             <p>Approve</p>
+            <p>Delete</p>
           </div>
           </div>          
           <div>

@@ -1,0 +1,28 @@
+.info_header{
+    background-color: #042940;
+    padding: 3rem;
+    font-size: 3rem;
+    Color: white;
+}
+
+.info_store{
+    color: #042940;
+    padding: 3rem;
+    font-size: 3rem;
+    text-align: center;
+}
+
+.info_requests{
+    color: #042940;
+    padding: 3rem;
+    font-size: 3rem;
+    text-align: center;
+}
+
+.login_demo{
+    padding: 5rem;
+}
+
+.login_demo > img {
+    filter: blur(5px)
+}
